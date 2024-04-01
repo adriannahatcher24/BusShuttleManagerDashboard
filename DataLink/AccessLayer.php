@@ -136,6 +136,39 @@ class AccessLayer
     return $this->loops[$loopID];
   }
 
+  public function getRoutesForLoop($loopId)
+    {
+        $loopId = $this->conn->escape_string($loopId);
+        $sql = "SELECT * FROM routes WHERE loop_id = '$loopId'";
+        $result = $this->conn->query($sql);
+        $routes = array();
+        while ($row = $result->fetch_assoc()) {
+            $route = new stdClass();
+            $route->id = $row['id'];
+            $route->name = $row['name'];
+            // Add more properties as needed
+            $routes[] = $route;
+        }
+        return $routes;
+    }
+
+    public function getStopsForRoute($routeId)
+    {
+        $routeId = $this->conn->escape_string($routeId);
+        $sql = "SELECT * FROM stops WHERE route_id = '$routeId'";
+        $result = $this->conn->query($sql);
+        $stops = array();
+        while ($row = $result->fetch_assoc()) {
+            $stop = new stdClass();
+            $stop->id = $row['id'];
+            $stop->name = $row['name'];
+            // Add more properties as needed
+            $stops[] = $stop;
+        }
+        return $stops;
+    }
+
+
   // Stops
   public function get_stops()
   {

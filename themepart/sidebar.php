@@ -55,12 +55,12 @@ function appLogout()
                         <li>
                             <a href="../Pages/Loops.php">Loops</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="../Pages/Stops.php">Stops</a>
                         </li>
                         <li>
                             <a href="../Pages/Routes.php">Routes</a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="../Pages/Buses.php">Buses</a>
                         </li>
