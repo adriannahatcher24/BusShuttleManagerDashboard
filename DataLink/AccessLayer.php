@@ -292,9 +292,6 @@ class AccessLayer
     $results = $this->query($sql); 
   }
 
-  
-  
-
 
   public function get_inspection_items_name($InspectionItemID) {
     if(array_key_exists($InspectionItemID,$this->Inspection_items)) {    

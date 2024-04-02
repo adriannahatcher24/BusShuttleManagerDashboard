@@ -59,6 +59,14 @@ if (isset($_POST['SubmitButton'])) {
     header('Location: Routes.php');
 }
 
+if (isset($_POST['SubmitButton'])) {
+    $input = $_POST['inputText'];
+    if ($input != '') {
+        postLoop($input); 
+    }
+    header('Location: Routes.php'); 
+}
+
 
 function makeList(&$stopNames, $input)
 {
@@ -72,6 +80,11 @@ function addRoute($stopID, $loopID, $afterStop)
     $AccessLayer->add_route($stopID, $loopID, $afterStop);
 }
 
+function postLoop($stopName)
+{
+    $AccessLayer = new AccessLayer(); // Creates an instance of AccessLayer
+    $AccessLayer->add_stop($stopName); // Calls the add_stop method to add the stop to the database
+}
 ?>
 
 <?php
@@ -88,7 +101,6 @@ require '../themepart/pageContentHolder.php';
 
 <body>
     <div align="center">
-
         <div class="d-flex justify-content-center">
             <div class="form-group">
                 <form class="needs-validation" novalidate action="" method="post">
@@ -100,7 +112,6 @@ require '../themepart/pageContentHolder.php';
                     </div>
                 </form>
                 <div class="d-flex justify-content-center">
-
                 </div>
                 <br>
                 <div class="d-flex justify-content-center">
@@ -108,11 +119,9 @@ require '../themepart/pageContentHolder.php';
                         <form action="" method="post">
                             <div class="form-row align-items-center">
                                 <div class="col-auto">
-
                                 </div>
                                 <div class="col-auto">
-                                    
-                                        <h3>Display by <select onchange="this.form.submit()" class="mb-2" name="loop" id="loop">
+                                    <h3>Display by <select onchange="this.form.submit()" class="mb-2" name="loop" id="loop">
                                                 <option selected="selected">Select a Loop</option>
                                                 <?php
                                                 foreach ($loopDropdown as $name) { ?>
@@ -121,8 +130,7 @@ require '../themepart/pageContentHolder.php';
                                                 <?php
                                                 } ?>
                                             </select>
-                                            <h3>
-                                    
+                                    <h3>
                                 </div>
                             </div>
                         </form>
@@ -132,12 +140,10 @@ require '../themepart/pageContentHolder.php';
         </div>
 
         <div class="d-flex justify-content-center">
-
-
             <form action="" method="post">
                 
-            <h3 style="display:none;" id="assignmentOptions">Assign <select class="" name="stopToAdd" id="stopToAdd" required>
-                    <option selected="selected">Select a Stop</option>
+            <!-- <h3 style="display:none;" id="assignmentOptions">Assign <select class="" name="stopToAdd" id="stopToAdd" required> -->
+                    <!-- <option selected="selected">Select a Stop</option>
                     <?php
                     foreach ($stopDropdown as $name) { ?>
                         <option name="stopToAdd" value="<?= $name->id ?>"><?= $name->stops ?>
@@ -155,15 +161,39 @@ require '../themepart/pageContentHolder.php';
                     } ?>
                 </select>
                 <button type="submit" name="SubmitButton" class="btn btn-dark">Assign</button>
-            </h3>
-
-                
+            </h3> -->
+  
         </div>
-        </form>
-        
+    </form>
 
+        <div align="center">
+    <div class="d-flex justify-content-center">
+        <p><h3>Create a New Stop</h3></p>
     </div>
-
+    <div class="d-flex justify-content-center">
+        <div class="form-group">
+            <form class="needs-validation" novalidate action="Routes.php" method="post">
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInput">Stop Name</label>
+                        <input type="text" input="text" class="form-control mb-2" name='inputText' id="inlineFormInput" placeholder="Enter stop name" required>
+                    </div>
+                    <div class="col-auto">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" name="SubmitButton" class="btn btn-dark form-control mb-2">Create</button>
+                    </div>
+                </div>
+            </form>
+            <div class="d-flex justify-content-center">
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+            </div>
+        </div>
+    </div>
+</div> 
+    </div>
     <table id="editable_table" class="table table-bordered table-striped">
         <thead>
             <tr>
